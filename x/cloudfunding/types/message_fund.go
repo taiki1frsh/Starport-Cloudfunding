@@ -9,10 +9,11 @@ const TypeMsgFund = "fund"
 
 var _ sdk.Msg = &MsgFund{}
 
-func NewMsgFund(creator string, id uint64) *MsgFund {
+func NewMsgFund(creator string, id uint64, amt string) *MsgFund {
 	return &MsgFund{
 		Creator: creator,
 		Id:      id,
+		Amt:     amt,
 	}
 }
 

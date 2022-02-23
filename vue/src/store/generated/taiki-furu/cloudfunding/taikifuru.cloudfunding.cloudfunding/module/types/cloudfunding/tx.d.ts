@@ -3,7 +3,7 @@ export declare const protobufPackage = "taikifuru.cloudfunding.cloudfunding";
 export interface MsgCreateProject {
     creator: string;
     target: string;
-    deadline: string;
+    period: string;
     description: string;
 }
 export interface MsgCreateProjectResponse {
@@ -11,6 +11,7 @@ export interface MsgCreateProjectResponse {
 export interface MsgFund {
     creator: string;
     id: number;
+    amt: string;
 }
 export interface MsgFundResponse {
 }

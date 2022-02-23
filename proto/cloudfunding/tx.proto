@@ -15,7 +15,7 @@ service Msg {
 message MsgCreateProject {
   string creator = 1;
   string target = 2;
-  string deadline = 3;
+  string period = 3;
   string description = 4;
 }
 

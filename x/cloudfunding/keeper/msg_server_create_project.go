@@ -21,10 +21,11 @@ func (k msgServer) CreateProject(goCtx context.Context, msg *types.MsgCreateProj
 	}
 
 	blockHeight := ctx.BlockHeight()
-	deadlineInt, err := strconv.ParseInt(project.Deadline, 10, 64)
+	deadlineInt, err := strconv.ParseInt(msg.Period, 10, 64)
 	if err != nil {
 		panic(err)
 	}
+
 	rightDeadline := blockHeight + deadlineInt
 	project.Deadline = strconv.Itoa(int(rightDeadline))
 

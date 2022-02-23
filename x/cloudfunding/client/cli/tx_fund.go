@@ -15,14 +15,15 @@ var _ = strconv.Itoa(0)
 
 func CmdFund() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "fund [id]",
+		Use:   "fund [id] [amt]",
 		Short: "Broadcast message fund",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argId, err := cast.ToUint64E(args[0])
 			if err != nil {
 				return err
 			}
+			argAmt := cast.ToString(args[1])
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
@@ -32,6 +33,7 @@ func CmdFund() *cobra.Command {
 			msg := types.NewMsgFund(
 				clientCtx.GetFromAddress().String(),
 				argId,
+				argAmt,
 			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err

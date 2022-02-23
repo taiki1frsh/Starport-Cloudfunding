@@ -5,7 +5,7 @@ export const protobufPackage = "taikifuru.cloudfunding.cloudfunding";
 const baseMsgCreateProject = {
     creator: "",
     target: "",
-    deadline: "",
+    period: "",
     description: "",
 };
 export const MsgCreateProject = {
@@ -16,8 +16,8 @@ export const MsgCreateProject = {
         if (message.target !== "") {
             writer.uint32(18).string(message.target);
         }
-        if (message.deadline !== "") {
-            writer.uint32(26).string(message.deadline);
+        if (message.period !== "") {
+            writer.uint32(26).string(message.period);
         }
         if (message.description !== "") {
             writer.uint32(34).string(message.description);
@@ -38,7 +38,7 @@ export const MsgCreateProject = {
                     message.target = reader.string();
                     break;
                 case 3:
-                    message.deadline = reader.string();
+                    message.period = reader.string();
                     break;
                 case 4:
                     message.description = reader.string();
@@ -64,11 +64,11 @@ export const MsgCreateProject = {
         else {
             message.target = "";
         }
-        if (object.deadline !== undefined && object.deadline !== null) {
-            message.deadline = String(object.deadline);
+        if (object.period !== undefined && object.period !== null) {
+            message.period = String(object.period);
         }
         else {
-            message.deadline = "";
+            message.period = "";
         }
         if (object.description !== undefined && object.description !== null) {
             message.description = String(object.description);
@@ -82,7 +82,7 @@ export const MsgCreateProject = {
         const obj = {};
         message.creator !== undefined && (obj.creator = message.creator);
         message.target !== undefined && (obj.target = message.target);
-        message.deadline !== undefined && (obj.deadline = message.deadline);
+        message.period !== undefined && (obj.period = message.period);
         message.description !== undefined &&
             (obj.description = message.description);
         return obj;
@@ -101,11 +101,11 @@ export const MsgCreateProject = {
         else {
             message.target = "";
         }
-        if (object.deadline !== undefined && object.deadline !== null) {
-            message.deadline = object.deadline;
+        if (object.period !== undefined && object.period !== null) {
+            message.period = object.period;
         }
         else {
-            message.deadline = "";
+            message.period = "";
         }
         if (object.description !== undefined && object.description !== null) {
             message.description = object.description;
@@ -154,7 +154,7 @@ export const MsgCreateProjectResponse = {
         return message;
     },
 };
-const baseMsgFund = { creator: "", id: 0 };
+const baseMsgFund = { creator: "", id: 0, amt: "" };
 export const MsgFund = {
     encode(message, writer = Writer.create()) {
         if (message.creator !== "") {
@@ -162,6 +162,9 @@ export const MsgFund = {
         }
         if (message.id !== 0) {
             writer.uint32(16).uint64(message.id);
+        }
+        if (message.amt !== "") {
+            writer.uint32(26).string(message.amt);
         }
         return writer;
     },
@@ -177,6 +180,9 @@ export const MsgFund = {
                     break;
                 case 2:
                     message.id = longToNumber(reader.uint64());
+                    break;
+                case 3:
+                    message.amt = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -199,12 +205,19 @@ export const MsgFund = {
         else {
             message.id = 0;
         }
+        if (object.amt !== undefined && object.amt !== null) {
+            message.amt = String(object.amt);
+        }
+        else {
+            message.amt = "";
+        }
         return message;
     },
     toJSON(message) {
         const obj = {};
         message.creator !== undefined && (obj.creator = message.creator);
         message.id !== undefined && (obj.id = message.id);
+        message.amt !== undefined && (obj.amt = message.amt);
         return obj;
     },
     fromPartial(object) {
@@ -220,6 +233,12 @@ export const MsgFund = {
         }
         else {
             message.id = 0;
+        }
+        if (object.amt !== undefined && object.amt !== null) {
+            message.amt = object.amt;
+        }
+        else {
+            message.amt = "";
         }
         return message;
     },

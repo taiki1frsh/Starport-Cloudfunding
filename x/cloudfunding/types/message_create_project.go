@@ -9,11 +9,11 @@ const TypeMsgCreateProject = "create_project"
 
 var _ sdk.Msg = &MsgCreateProject{}
 
-func NewMsgCreateProject(creator string, target string, deadline string, description string) *MsgCreateProject {
+func NewMsgCreateProject(creator string, target string, period string, description string) *MsgCreateProject {
 	return &MsgCreateProject{
 		Creator:     creator,
 		Target:      target,
-		Deadline:    deadline,
+		Period:      period,
 		Description: description,
 	}
 }

@@ -21,6 +21,13 @@ export interface MsgFund {
 
 export interface MsgFundResponse {}
 
+export interface MsgStopProject {
+  creator: string;
+  id: number;
+}
+
+export interface MsgStopProjectResponse {}
+
 const baseMsgCreateProject: object = {
   creator: "",
   target: "",
@@ -312,11 +319,122 @@ export const MsgFundResponse = {
   },
 };
 
+const baseMsgStopProject: object = { creator: "", id: 0 };
+
+export const MsgStopProject = {
+  encode(message: MsgStopProject, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.id !== 0) {
+      writer.uint32(16).uint64(message.id);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgStopProject {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgStopProject } as MsgStopProject;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.id = longToNumber(reader.uint64() as Long);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgStopProject {
+    const message = { ...baseMsgStopProject } as MsgStopProject;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id);
+    } else {
+      message.id = 0;
+    }
+    return message;
+  },
+
+  toJSON(message: MsgStopProject): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.id !== undefined && (obj.id = message.id);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgStopProject>): MsgStopProject {
+    const message = { ...baseMsgStopProject } as MsgStopProject;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    } else {
+      message.id = 0;
+    }
+    return message;
+  },
+};
+
+const baseMsgStopProjectResponse: object = {};
+
+export const MsgStopProjectResponse = {
+  encode(_: MsgStopProjectResponse, writer: Writer = Writer.create()): Writer {
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgStopProjectResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgStopProjectResponse } as MsgStopProjectResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgStopProjectResponse {
+    const message = { ...baseMsgStopProjectResponse } as MsgStopProjectResponse;
+    return message;
+  },
+
+  toJSON(_: MsgStopProjectResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(_: DeepPartial<MsgStopProjectResponse>): MsgStopProjectResponse {
+    const message = { ...baseMsgStopProjectResponse } as MsgStopProjectResponse;
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   CreateProject(request: MsgCreateProject): Promise<MsgCreateProjectResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   Fund(request: MsgFund): Promise<MsgFundResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  StopProject(request: MsgStopProject): Promise<MsgStopProjectResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -344,6 +462,18 @@ export class MsgClientImpl implements Msg {
       data
     );
     return promise.then((data) => MsgFundResponse.decode(new Reader(data)));
+  }
+
+  StopProject(request: MsgStopProject): Promise<MsgStopProjectResponse> {
+    const data = MsgStopProject.encode(request).finish();
+    const promise = this.rpc.request(
+      "taikifuru.cloudfunding.cloudfunding.Msg",
+      "StopProject",
+      data
+    );
+    return promise.then((data) =>
+      MsgStopProjectResponse.decode(new Reader(data))
+    );
   }
 }
 

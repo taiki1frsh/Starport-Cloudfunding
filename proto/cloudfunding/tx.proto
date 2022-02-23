@@ -9,6 +9,7 @@ option go_package = "github.com/taiki-furu/cloudfunding/x/cloudfunding/types";
 service Msg {
       rpc CreateProject(MsgCreateProject) returns (MsgCreateProjectResponse);
   rpc Fund(MsgFund) returns (MsgFundResponse);
+  rpc StopProject(MsgStopProject) returns (MsgStopProjectResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -29,6 +30,14 @@ message MsgFund {
 }
 
 message MsgFundResponse {
+}
+
+message MsgStopProject {
+  string creator = 1;
+  uint64 id = 2;
+}
+
+message MsgStopProjectResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message

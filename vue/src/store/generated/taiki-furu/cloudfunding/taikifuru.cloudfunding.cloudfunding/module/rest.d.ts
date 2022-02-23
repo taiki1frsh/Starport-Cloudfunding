@@ -1,5 +1,6 @@
 export declare type CloudfundingMsgCreateProjectResponse = object;
 export declare type CloudfundingMsgFundResponse = object;
+export declare type CloudfundingMsgStopProjectResponse = object;
 /**
  * Params defines the parameters for the module.
  */

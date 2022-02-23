@@ -9,12 +9,16 @@ import (
 
 func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgCreateProject{}, "cloudfunding/CreateProject", nil)
+	cdc.RegisterConcrete(&MsgFund{}, "cloudfunding/Fund", nil)
 	// this line is used by starport scaffolding # 2
 }
 
 func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgCreateProject{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgFund{},
 	)
 	// this line is used by starport scaffolding # 3
 

@@ -20150,6 +20150,8 @@ definitions:
       freezing clients
   taikifuru.cloudfunding.cloudfunding.MsgCreateProjectResponse:
     type: object
+  taikifuru.cloudfunding.cloudfunding.MsgFundResponse:
+    type: object
   taikifuru.cloudfunding.cloudfunding.Params:
     type: object
     description: Params defines the parameters for the module.

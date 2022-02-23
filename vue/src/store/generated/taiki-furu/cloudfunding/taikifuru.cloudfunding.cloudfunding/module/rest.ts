@@ -11,6 +11,8 @@
 
 export type CloudfundingMsgCreateProjectResponse = object;
 
+export type CloudfundingMsgFundResponse = object;
+
 /**
  * Params defines the parameters for the module.
  */

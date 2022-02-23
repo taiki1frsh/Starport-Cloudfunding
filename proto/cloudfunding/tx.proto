@@ -1,0 +1,43 @@
+syntax = "proto3";
+package taikifuru.cloudfunding.cloudfunding;
+
+// this line is used by starport scaffolding # proto/tx/import
+
+option go_package = "github.com/taiki-furu/cloudfunding/x/cloudfunding/types";
+
+// Msg defines the Msg service.
+service Msg {
+      rpc CreateProject(MsgCreateProject) returns (MsgCreateProjectResponse);
+  rpc Fund(MsgFund) returns (MsgFundResponse);
+  rpc StopProject(MsgStopProject) returns (MsgStopProjectResponse);
+// this line is used by starport scaffolding # proto/tx/rpc
+}
+
+message MsgCreateProject {
+  string creator = 1;
+  string target = 2;
+  string period = 3;
+  string description = 4;
+}
+
+message MsgCreateProjectResponse {
+}
+
+message MsgFund {
+  string creator = 1;
+  uint64 id = 2;
+  string amt = 3;
+}
+
+message MsgFundResponse {
+}
+
+message MsgStopProject {
+  string creator = 1;
+  uint64 id = 2;
+}
+
+message MsgStopProjectResponse {
+}
+
+// this line is used by starport scaffolding # proto/tx/message

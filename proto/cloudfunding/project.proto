@@ -1,0 +1,14 @@
+syntax = "proto3";
+package taikifuru.cloudfunding.cloudfunding;
+
+option go_package = "github.com/taiki-furu/cloudfunding/x/cloudfunding/types";
+
+message Project {
+  uint64 id = 1;
+  string target = 2; 
+  string collected = 3; 
+  string deadline = 4; 
+  string description = 5; 
+  string state = 6; 
+  string creator = 7; 
+}

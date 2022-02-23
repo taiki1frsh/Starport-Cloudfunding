@@ -17,6 +17,10 @@ func (k msgServer) StopProject(goCtx context.Context, msg *types.MsgStopProject)
 		return nil, sdkerrors.Wrap(sdkerrors.ErrNotFound, "not found")
 	}
 
+	if msg.Creator != project.Creator {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, "you are not creator of this project")
+	}
+
 	blockheight := ctx.BlockHeight()
 	deadline, _ := strconv.ParseInt(project.Deadline, 10, 64)
 	if blockheight < deadline {
